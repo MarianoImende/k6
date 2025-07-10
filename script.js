@@ -4,7 +4,7 @@ import { endpoints } from './endpoints.js';
 import { randomIntBetween } from '../utils.js';
 
 
-const httpCodes = [200, 201, 202, 0, 400, 401, 403, 404, 408, 418, 429, 500, 502, 503, 504, 507, 508];
+const httpCodes = [200, 201, 202, 0, 400, 401, 403, 404, 405, 408, 418, 429, 500, 502, 503, 504, 507, 508, 99];
 const httpCodesValidos = [200, 201, 202];
 
 let checkMetrics = {};
