@@ -141,8 +141,8 @@
             "uid": "fen2tv0fw191cb"
           },
           "disableTextWrap": false,
-          "editorMode": "code",
-          "expr": "sum(k6_http_reqs_total)",
+          "editorMode": "builder",
+          "expr": "sum(k6_Count_status_total_total)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -152,7 +152,7 @@
           "useBackend": false
         }
       ],
-      "title": "HTTP requests",
+      "title": "HTTP requests Total",
       "type": "stat"
     },
     {
@@ -208,7 +208,7 @@
             "uid": "fen2tv0fw191cb"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "expr": "sum(k6_Count_Error_total_total)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -356,7 +356,7 @@
         },
         {
           "editorMode": "code",
-          "expr": "sum by(name) (k6_check_status_500_total)",
+          "expr": "sum by(name) (k6_check_status_500_total[$__interval])",
           "format": "table",
           "legendFormat": "500",
           "range": true,
@@ -364,7 +364,7 @@
         },
         {
           "editorMode": "code",
-          "expr": "sum by(name) (k6_check_status_503_total)",
+          "expr": "sum by(name) (k6_check_status_503_total[$__interval])",
           "format": "table",
           "legendFormat": "503",
           "range": true,
@@ -372,7 +372,7 @@
         },
         {
           "editorMode": "code",
-          "expr": "sum by(name) (k6_check_status_502_total)",
+          "expr": "sum by(name) (k6_check_status_502_total[$__interval])",
           "format": "table",
           "legendFormat": "502",
           "range": true,
@@ -384,7 +384,7 @@
             "uid": "fen2tv0fw191cb"
           },
           "editorMode": "code",
-          "expr": "sum by(name) (k6_check_status_504_total)",
+          "expr": "sum by(name) (k6_check_status_504_total[$__interval])",
           "format": "table",
           "hide": false,
           "legendFormat": "504",
@@ -397,7 +397,7 @@
             "uid": "fen2tv0fw191cb"
           },
           "editorMode": "code",
-          "expr": "sum by(name) (k6_check_status_0_total)",
+          "expr": "sum by(name) (k6_check_status_0_total[$__interval])",
           "format": "table",
           "hide": false,
           "legendFormat": "0",
@@ -410,7 +410,7 @@
             "uid": "fen2tv0fw191cb"
           },
           "editorMode": "code",
-          "expr": "sum by(name) (k6_check_status_99_total)",
+          "expr": "sum by(name) (k6_check_status_99_total[$__interval])",
           "format": "table",
           "hide": false,
           "legendFormat": "0",
@@ -439,37 +439,37 @@
               },
               "Value #B": {
                 "aggregations": [
-                  "sum"
+                  "max"
                 ],
                 "operation": "aggregate"
               },
               "Value #C": {
                 "aggregations": [
-                  "sum"
+                  "max"
                 ],
                 "operation": "aggregate"
               },
               "Value #D": {
                 "aggregations": [
-                  "sum"
+                  "max"
                 ],
                 "operation": "aggregate"
               },
               "Value #E": {
                 "aggregations": [
-                  "sum"
+                  "max"
                 ],
                 "operation": "aggregate"
               },
               "Value #F": {
                 "aggregations": [
-                  "sum"
+                  "max"
                 ],
                 "operation": "aggregate"
               },
               "Value #G": {
                 "aggregations": [
-                  "sum"
+                  "max"
                 ],
                 "operation": "aggregate"
               },
@@ -511,18 +511,24 @@
               "Value #A (mean)": "200",
               "Value #A (sum)": "200",
               "Value #B": "min",
+              "Value #B (max)": "500",
               "Value #B (mean)": "500",
               "Value #B (sum)": "500",
               "Value #C": "max",
+              "Value #C (max)": "503",
               "Value #C (mean)": "503",
               "Value #C (sum)": "503",
               "Value #D": "p95",
+              "Value #D (max)": "502",
               "Value #D (mean)": "502",
               "Value #D (sum)": "502",
               "Value #E": "p99",
+              "Value #E (max)": "504",
               "Value #E (mean)": "0",
               "Value #E (sum)": "504",
+              "Value #F (max)": "0",
               "Value #F (sum)": "0",
+              "Value #G (max)": "99",
               "Value #G (sum)": "99",
               "name": "EndPoint"
             }
@@ -1243,6 +1249,30 @@
                 }
               }
             ]
+          },
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "ObtenerTrxOnlineFull"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
           }
         ]
       },
@@ -1303,118 +1333,6 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "ms"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Request_TransfServices"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-purple",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 42
-      },
-      "id": 22,
-      "interval": "2s",
-      "maxDataPoints": 1558,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.0.1",
-      "targets": [
-        {
-          "editorMode": "code",
-          "expr": "avg_over_time(k6_http_req_duration_p95{name=~\".*\"}[$__interval])",
-          "interval": "",
-          "legendFormat": "{{name}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "avg_over_tim Promedio de Duración de Solicitudes (p95):",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "fen2tv0fw191cb"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
             "mode": "thresholds"
           },
           "custom": {
@@ -1440,7 +1358,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 50
+        "y": 42
       },
       "id": 21,
       "options": {
@@ -1588,10 +1506,122 @@
         }
       ],
       "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "fen2tv0fw191cb"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Request_TransfServices"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 52
+      },
+      "id": 22,
+      "interval": "2s",
+      "maxDataPoints": 1558,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.0.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "avg_over_time(k6_http_req_duration_p95{name=~\".*\"}[$__interval])",
+          "interval": "",
+          "legendFormat": "{{name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "avg_over_tim Promedio de Duración de Solicitudes (p95):",
+      "type": "timeseries"
     }
   ],
   "preload": false,
-  "refresh": "5s",
+  "refresh": "",
   "schemaVersion": 41,
   "tags": [
     "VictoriaMetrics",
@@ -1612,12 +1642,12 @@
     ]
   },
   "time": {
-    "from": "2025-07-07T17:21:00.011Z",
-    "to": "2025-07-07T17:23:11.249Z"
+    "from": "2025-07-10T18:35:22.718Z",
+    "to": "2025-07-10T18:37:25.559Z"
   },
   "timepicker": {},
   "timezone": "America/Argentina/Buenos_Aires",
   "title": "K6 VictoriaMetrics",
   "uid": "12",
-  "version": 114
+  "version": 119
 }
